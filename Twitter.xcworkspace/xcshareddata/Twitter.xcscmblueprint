@@ -1,23 +1,30 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9E1BE00183F8A51DD794C826E9DF308210F3DC5F",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E7173AAA5498F84958E61404498579179635767F",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "9E1BE00183F8A51DD794C826E9DF308210F3DC5F" : 9223372036854775807
+    "5A966E451F6CAB777260C3C7571A25AADB1A103F" : 9223372036854775807,
+    "E7173AAA5498F84958E61404498579179635767F" : 9223372036854775807
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6ED34FC6-CA0B-485D-AE8A-623E9F948537",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "16A39C1B-F8DC-4EE0-87CB-6E0EEE83D4B4",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "9E1BE00183F8A51DD794C826E9DF308210F3DC5F" : "Twitter\/"
+    "5A966E451F6CAB777260C3C7571A25AADB1A103F" : "",
+    "E7173AAA5498F84958E61404498579179635767F" : "Twitter\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Twitter",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Twitter.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/danielliucodes\/TipDrill.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5A966E451F6CAB777260C3C7571A25AADB1A103F"
+    },
+    {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/danielliucodes\/Twitter.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9E1BE00183F8A51DD794C826E9DF308210F3DC5F"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E7173AAA5498F84958E61404498579179635767F"
     }
   ]
 }

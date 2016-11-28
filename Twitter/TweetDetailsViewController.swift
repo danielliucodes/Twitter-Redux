@@ -16,7 +16,7 @@ enum CellType: Int {
     @objc optional func tweetDetailsViewController(tweetDetailsViewController: TweetDetailsViewController, tweet: Tweet)
 }
 
-class TweetDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetDetailsViewControllerDelegate, TweetsViewControllerDelegate {
+class TweetDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetDetailsViewControllerDelegate, TweetsViewControllerDelegate, NewTweetViewControllerDelegate {
     
     weak var delegate: TweetDetailsViewControllerDelegate?
     
@@ -64,6 +64,10 @@ class TweetDetailsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tweetsViewController(tweetsViewController: TweetsViewController, tweet: Tweet) {
         self.tweet = tweet
+    }
+    
+    func newTweetViewController(newTweetViewController: NewTweetViewController, tweet: Tweet) {
+        
     }
     
     @IBAction func onRetweetTap(_ sender: Any) {
@@ -116,6 +120,8 @@ class TweetDetailsViewController: UIViewController, UITableViewDataSource, UITab
             let viewController = navigationController.topViewController as! NewTweetViewController
             viewController.replyTweet = tweet
             viewController.user = User.currentUser
+            viewController.delegate = self
+
         }
 
     }

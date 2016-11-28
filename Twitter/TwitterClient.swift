@@ -113,6 +113,33 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func user(screenname: String, success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
+        let parameters: NSDictionary = ["screen_name": screenname]
+        
+        get("1.1/users/show.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+            let userDictionary = response as! NSDictionary
+            let user = User(dictionary: userDictionary)
+            success(user)
+        }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        })
+    }
+    
+    func userTimeline(screenname: String, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        let parameters: NSDictionary = ["screen_name": screenname]
+        
+        get("1.1/statuses/user_timeline.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+            let dictionaries = response as! [NSDictionary]
+            
+            let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+            
+            success(tweets)
+            
+        }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        })
+    }
+    
     func handleOpenUrl(url: URL) {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         
@@ -120,6 +147,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             
             self.currentAccount(success: { (user: User) in
                 User.currentUser = user
+                NotificationCenter.default.post(name: User.userDidLoginNotification, object: nil)
                 self.loginSuccess?()
             }, failure: { (error: Error) in
                 self.loginFailure?(error)

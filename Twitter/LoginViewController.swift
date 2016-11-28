@@ -9,7 +9,7 @@
 import UIKit
 import BDBOAuth1Manager
 
-class LoginViewController: UIViewController, TweetsViewControllerDelegate {
+class LoginViewController: UIViewController, HamburgerViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +40,15 @@ class LoginViewController: UIViewController, TweetsViewControllerDelegate {
         // Get the new view controller using segue.destinationViewController.
         let navigationController = segue.destination as! UINavigationController
         // Pass the selected object to the new view controller.
-        let tweetsViewController = navigationController.topViewController as! TweetsViewController
         
-        tweetsViewController.delegate = self
+        
+//        let tweetsViewController = navigationController.topViewController as! TweetsViewController
+//        
+//        tweetsViewController.delegate = self
+        
+        let hamburgerViewController = navigationController.topViewController as! HamburgerViewController
+        hamburgerViewController.delegate = self
+
     }
  
 

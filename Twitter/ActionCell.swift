@@ -24,6 +24,9 @@ class ActionCell: UITableViewCell {
             
             retweetButton.isSelected = tweet.retweeted
             likeButton.isSelected = tweet.liked
+            
+            print("retweeted: \(retweetButton.isSelected) \(tweet.retweetCount)")
+            print("liked: \(likeButton.isSelected) \(tweet.likeCount)")
         }
     }
     

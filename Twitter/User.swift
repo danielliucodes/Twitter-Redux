@@ -11,13 +11,19 @@ import UIKit
 class User: NSObject {
     
     static let userDidLogoutNotification = NSNotification.Name(rawValue: "UserDidLogout")
+    static let userDidLoginNotification = NSNotification.Name(rawValue: "UserDidLogin")
     
     var dictionary: NSDictionary?
     
     var name: String?
     var screenname: String?
     var profile_url: URL?
+    var header_url: URL?
     var tagline: String?
+    
+    var tweetsCount: Int = 0
+    var followingCount: Int = 0
+    var followersCount: Int = 0
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -29,7 +35,17 @@ class User: NSObject {
         if let profileUrlString = profileUrlString {
             profile_url = URL(string: profileUrlString)
         }
+        
+        let headerUrlString = dictionary["profile_banner_url"] as? String
+        if let headerUrlString = headerUrlString {
+            header_url = URL(string: headerUrlString)
+        }
+        
         tagline = dictionary["description"] as? String
+        
+        tweetsCount = (dictionary["statuses_count"] as? Int) ?? 0
+        followingCount = (dictionary["statuses_count"] as? Int) ?? 0
+        followersCount = (dictionary["friends_count"] as? Int) ?? 0
     }
     
     static var _currentUser: User?

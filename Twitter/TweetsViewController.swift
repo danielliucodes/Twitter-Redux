@@ -12,7 +12,7 @@ import UIKit
     @objc optional func tweetsViewController(tweetsViewController: TweetsViewController, tweet: Tweet)
 }
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetsViewControllerDelegate, TweetDetailsViewControllerDelegate, NewTweetViewControllerDelegate {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, TweetsViewControllerDelegate, TweetDetailsViewControllerDelegate, NewTweetViewControllerDelegate, ProfileViewControllerDelegate {
     
     weak var delegate: TweetsViewControllerDelegate?
     
@@ -28,14 +28,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         tableView.estimatedRowHeight = 400
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) -> () in
-            self.tweets = tweets
-            self.tableView.reloadData()
-            
-        }, failure: { (error: Error) -> () in
-            print(error.localizedDescription)
-        })
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
@@ -64,16 +56,17 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         
         cell.tweet = tweets[indexPath.row]
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onUserTap(_:)))
+//        tapGesture.delegate = self
+        cell.thumbnailView.isUserInteractionEnabled = true
+        cell.thumbnailView.addGestureRecognizer(tapGesture)
+        
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        // example to return the estimated height
-        return 400
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect row appearance after it has been selected
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tweetDetailsViewController(tweetDetailsViewController: TweetDetailsViewController, tweet: Tweet) {
@@ -81,7 +74,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             success: { (tweets: [Tweet]) -> () in
                 self.tweets = tweets
                 self.tableView.reloadData()
-                
+        
         }, failure: { (error: Error) -> () in
             print("error: \(error.localizedDescription)")
         })
@@ -92,6 +85,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.reloadData()
     }
 
+    func profileViewControllerDelegate(profileViewController: ProfileViewController) {
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -112,6 +109,29 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         }, failure: { (error: Error) -> () in
             print("error: \(error.localizedDescription)")
         })
+    }
+    
+    func onUserTap(_ sender: UITapGestureRecognizer) {
+        print("gesture tap recognized")
+        
+        let location = sender.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: location)
+        let tweet = tweets[(indexPath?.row)!]
+
+        //let profileViewController = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        let profileNavigationController = storyboard?.instantiateViewController(withIdentifier: "profileNavigationController") as! UINavigationController
+        let profileViewController = profileNavigationController.topViewController as! ProfileViewController
+
+        profileViewController.user = tweet.user
+        
+        print("user for tweet is \(tweet.user?.name)")
+        
+        self.navigationController?.pushViewController(profileViewController, animated: true)
+        
+//        self.performSegue(withIdentifier: "tweetProfileSegue", sender: sender)
+        
+        
+        
     }
     
     // MARK: - Navigation
@@ -137,6 +157,28 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             let viewController = navigationController.topViewController as! NewTweetViewController
             viewController.delegate = self
             viewController.user = User.currentUser
+            
+        case "tweetProfileSegue" :
+            //let sender = sender as! UITapGestureRecognizer
+            //let location = sender.location(in: tableView)
+            //let indexPath = tableView.indexPathForRow(at: location)
+            //let tweet = tweets[(indexPath?.row)!]
+            let cell = sender as! TweetCell
+            let indexPath = tableView.indexPath(for: cell)
+            let tweet = tweets[indexPath!.row]
+            
+//            let profileViewController = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+//            profileViewController.user = tweet.user
+            
+            
+            let navigationController = segue.destination as! UINavigationController
+            let viewController = navigationController.topViewController as! ProfileViewController
+            
+            viewController.user = tweet.user
+            
+            viewController.delegate = self
+            
+//            self.delegate = viewController
         default:
             break
             

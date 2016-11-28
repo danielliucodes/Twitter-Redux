@@ -95,7 +95,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
             let now = formatter.string(from: Date())
             
             TwitterClient.sharedInstance.postTweet(tweetText: newTweetText, replyId: replyTweet?.id, success: { () -> () in
-                let tweetDictionary: NSDictionary = ["text": self.newTweetText, "created_at": now, "retweet_cunt": 0, "favourites_count": 0, "user": self.user.dictionary!, "retweeted": false, "favorited": false]
+                let tweetDictionary: NSDictionary = ["text": self.newTweetText, "created_at": now, "retweet_cunt": 0, "favorites_count": 0, "user": self.user.dictionary!, "retweeted": false, "favorited": false]
                 let tweet = Tweet.init(dictionary: tweetDictionary)
                 
                 self.delegate?.newTweetViewController(newTweetViewController: self, tweet: tweet)

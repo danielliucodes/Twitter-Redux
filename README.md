@@ -1,31 +1,35 @@
 # Twitter
 
-This is the Twitter project.
+This is the Twitter Redux project.
 
 Time spent: 14 hours spent in total
 
 Completed user stories:
 
-* [x] User can sign in using OAuth login flow
-* [x] User can view last 20 tweets from their home timeline
-* [x] The current signed in user will be persisted across restarts
-* [x] In the home timeline, user can view tweet with the user profile picture, username, tweet text, and timestamp. In other words, design the custom cell with the proper Auto Layout settings. You will also need to augment the model classes.
-* [x] User can pull to refresh
-* [x] User can compose a new tweet by tapping on a compose button.
+Hamburger menu
+* [x] Dragging anywhere in the view should reveal the menu.
+* [x] The menu should include links to your profile, the home timeline, and the mentions view.
+* [x] The menu can look similar to the menu below or feel free to take liberty with the UI.
+Profile page
+* [x] Contains the user header view
+* [x] Contains a section with the users basic stats: # tweets, # following, # followers
+* [x] Shows the user timeline
+Home Timeline
+* [x] Tapping on a user image should bring up that user's profile page
 
 Notes:
 
 Optional features not completed as focus is on completing all required assignments to catch up.
 The following issues were faced:
-  
-  Twitter API
-    - API rate limit caused many test runs to fail, like not retrieving timelines or posting Tweets.
-  
+ 
   Auto Layout
-    - Ran into some issues of Auto Layout causing text not to show.
+    - Ran into some issues of Auto Layout causing text in the profile view to be in weird places.
     
-   Reusable Table Cell
-    - Could not figure out how to get the Tweet details view, which had a lot of overlap with Tweets timeline view, yet needed action buttoms. Ended up hacking by using an enum count.
+   Segues
+    - Could not figure out how to get from tapping a profile picture on the tweets view controller to the profile view controller via segues, since XCode seems to only allow one segue per cell. I had to do it programatically.
+    
+    Twitter Refresh
+    - It takes some time for Twitter retweets and likes to return via the API.
    
 Walkthrough of all user stories:
 

@@ -25,10 +25,10 @@ The following issues were faced:
   Auto Layout
     - Ran into some issues of Auto Layout causing text in the profile view to be in weird places.
     
-   Segues
+  Segues
     - Could not figure out how to get from tapping a profile picture on the tweets view controller to the profile view controller via segues, since XCode seems to only allow one segue per cell. I had to do it programatically.
     
-    Twitter Refresh
+  Twitter Refresh
     - It takes some time for Twitter retweets and likes to return via the API.
    
 Walkthrough of all user stories:

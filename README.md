@@ -28,8 +28,8 @@ The following issues were faced:
   Segues
     - Could not figure out how to get from tapping a profile picture on the tweets view controller to the profile view controller via segues, since XCode seems to only allow one segue per cell. I had to do it programatically.
     
-  Twitter Refresh
-    - It takes some time for Twitter retweets and likes to return via the API.
+  Twitter Bug
+    - There is weird behavior when you retweet & like your own post.
    
 Walkthrough of all user stories:
 
